@@ -1,4 +1,4 @@
-const { homedata } = require("../model/malikdata");
+const { homedata } = require("../model/Homedata");
 const fs = require('fs');
 const path = require('path');
 
@@ -14,13 +14,6 @@ const postaddhome = (req, res, next) => {
   const b = new homedata(req.body);
   b.save();
 
-  const homedatastore = path.join(
-    path.dirname(require.main.filename), 'data','home.json'
-  );
-
-  fs.writeFile(homedatastore, JSON.stringify(homedata.fetchall()),(errr)=>{
-   console.log("error happens");
-  });
 
 
   res.render("successfull");
