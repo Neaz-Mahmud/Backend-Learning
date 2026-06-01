@@ -2,8 +2,8 @@ const express = require("express");
 
 const storerouter = express.Router();
 
-const usercontroller = require("../controller/usercontroller");
+const storecontroller = require("../controller/storecontroller");
 
-storerouter.get("/", usercontroller.userfrontpage);
+storerouter.get("/", storecontroller.userfrontpage);
 
 module.exports = storerouter;

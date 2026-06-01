@@ -2,13 +2,13 @@ const express = require("express");
 
 const hostrouter = express.Router();
 
-const malikcontroller = require("../controller/malikcontroller");
+const hostcontroller = require("../controller/hostcontroller");
 
-hostrouter.get("/add-home", malikcontroller.getaddhome);
+hostrouter.get("/add-home", hostcontroller.getaddhome);
 
-hostrouter.post("/add-home", malikcontroller.postaddhome);
+hostrouter.post("/add-home", hostcontroller.postaddhome);
 
 module.exports = {
   hostrouter: hostrouter,
-  homelist: malikcontroller.homelist,
+  homelist: hostcontroller.homelist,
 };
