@@ -4,7 +4,7 @@ const path = require("path");
 const rootdir = require("../utility/root");
 
 errorrouter.use((req, res, next) => {
-  res.sendFile(path.join(rootdir, "view", "error.html"));
+  res.render("error.ejs");
 });
 
 module.exports = errorrouter;

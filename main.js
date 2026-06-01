@@ -2,9 +2,10 @@ const express = require("express");
 
 const app = express();
 
-const { mailkrouter } = require("./routes/malik");
-const userrouter = require("./routes/user");
+const { hostrouter } = require("./routes/hostrouter");
+const storerouter = require("./routes/storerouter");
 const errorrouter = require("./routes/errorhandle");
+
 const path = require("path");
 const rootdir = require("./utility/root");
 
@@ -15,8 +16,8 @@ app.use(express.static(path.join(rootdir, "public")));
 
 app.use(express.urlencoded());
 
-app.use(userrouter);
-app.use(mailkrouter);
+app.use(hostrouter);
+app.use(storerouter);
 app.use(errorrouter);
 
 app.listen(3000, () => {
