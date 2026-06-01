@@ -1,8 +1,8 @@
-const { homedata } = require("../model/malikdata");
+const { homedata } = require("../model/Homedata");
 const { homelist } = require("./malikcontroller");
 
-const userfrontpage = (req, res, next) => {
-  const homelist = homedata.fetchall();
+const userfrontpage =  async (req, res, next) => {
+  const homelist = await homedata.fetchall();
   console.log("user tries to get homelisty", homelist);
   res.render("welcome.ejs", { homelist });
 };
