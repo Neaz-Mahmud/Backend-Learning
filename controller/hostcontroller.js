@@ -4,7 +4,7 @@ const path = require('path');
 
 
 const getaddhome = (req, res, next) => {
-  res.render("add-home");
+  res.render("host/add-home");
 };
 
 const homelist = [];
@@ -16,7 +16,7 @@ const postaddhome = (req, res, next) => {
 
 
 
-  res.render("successfull");
+  res.render("host/successfull");
 };
 
 module.exports = {

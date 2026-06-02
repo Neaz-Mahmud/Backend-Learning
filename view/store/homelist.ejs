@@ -11,9 +11,16 @@
 <body>
   <header>Welcome Here</header>
   <main>
+
+    <hr>
     <% homelist.forEach(function(home){%>
       <li>
-        <%=home%>
+        <%=home.homeaddress%>
+          <br>
+          <%=home.ownername%>
+            <br>
+            <a href="/home/<%= home.id %>">Details</a>
+            <hr>
       </li>
       <%})%>
 

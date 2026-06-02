@@ -4,8 +4,11 @@ const path = require('path');
 const filepath = path.join(path.dirname(require.main.filename), "data", "home.json");
 
 class homedata {
-  constructor({ homeaddress }) {
+  constructor({ homeaddress, ownername, id }) {
+
     this.homeaddress = homeaddress;
+    this.ownername = ownername;
+    this.id = id;
   }
 
   // Adjusted to be async so we can await the file operations
@@ -25,21 +28,21 @@ class homedata {
     }
 
     // 3. Add the new address and save
-    alldata.push(this.homeaddress);
+    alldata.push({ homeaddress: this.homeaddress, ownername: this.ownername, id: this.id });
 
     try {
       await fs.writeFile(filepath, JSON.stringify(alldata, null, 2));
     } catch (err) {
       console.error('Error in writing final data:', err);
     }
-  }  
+  }
 
   // Properly returns the data using async/await
   static async fetchall() {
-      
+
     try {
       const data = await fs.readFile(filepath);
-  
+
       return JSON.parse(data);
     } catch (err) {
       if (err.code === 'ENOENT') {
@@ -49,6 +52,34 @@ class homedata {
       return [];
     }
   }
+
+
+  static async fetchbyid(id) {
+
+
+    try {
+
+      const allhome = JSON.parse(await fs.readFile(filepath));
+
+      const ehome = allhome.find((home) => {
+        return home.id == id;
+      });
+
+      return ehome;
+
+    }
+    catch (err) {
+
+
+
+    }
+
+
+
+
+  }
+
+
 }
 
 module.exports = {
