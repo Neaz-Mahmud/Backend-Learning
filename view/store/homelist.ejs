@@ -17,8 +17,11 @@
       <li>
         <%=home.homeaddress%>
           <br>
+          
           <%=home.ownername%>
             <br>
+             <a href="addfav/<%= home.id%>">Add To Fav</a>
+             <br>
             <a href="/home/<%= home.id %>">Details</a>
             <hr>
       </li>
@@ -26,6 +29,8 @@
 
         <h1>You are welcome Here</h1>
         <a href="add-home">Go to add Home</a>
+        <br>
+        <a href="favourates">Favourate list</a>
   </main>
 </body>
 
