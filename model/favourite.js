@@ -1,12 +1,5 @@
-const fs = require("fs").promises;
+const { getdb } = require("../utility/database");
 const { homedata } = require("./Homedata");
-const path = require("path");
-const filepath = path.join(
-  path.dirname(require.main.filename),
-  "data",
-  "favouritelist.json",
-);
-let allfav = [];
 
 class Allfavourite {
   constructor(id) {
@@ -14,38 +7,20 @@ class Allfavourite {
   }
 
   async save(id) {
-    try {
-      const favouritelist = await fs.readFile(filepath);
-      allfav = JSON.parse(favouritelist);
-    } catch (err) {
-      if (err.code !== "ENOENT") {
-        throw err;
-      } else allfav = [];
-    }
-
-    if (allfav.includes(this.id) === false) allfav.push(this.id);
-
-    await fs.writeFile(filepath, JSON.stringify(allfav));
+    await getdb().collection("favourites").insertOne({ id: this.id });
   }
 
   static async fetchall() {
-    try {
-      const favlist = await fs.readFile(filepath);
+    const all = await getdb().collection("favourites").find().toArray();
+    const allhome = await homedata.fetchall();
 
-      let fav = [];
-      if (favlist.length) fav = JSON.parse(favlist);
-
-      const registerhomes = await homedata.fetchall();
-      fav = fav.map((ele) =>
-        registerhomes.find((home) => {
-          if (home.id === ele) return home;
-        }),
-      );
-      console.log(fav);
-      return fav;
-    } catch (err) {
-      return [];
-    }
+    const final = allhome.filter((ele) => {
+      return all.some((id) => {
+        return id.id === ele.id;
+      });
+    });
+    console.log("final is here", final);
+    return final;
   }
 }
 
