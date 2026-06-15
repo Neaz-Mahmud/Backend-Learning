@@ -9,6 +9,7 @@ const errorrouter = require("./routes/errorhandle");
 const path = require("path");
 const rootdir = require("./utility/root");
 const { mongoconnect } = require("./utility/database");
+const { databaseconnect } = require("./config/db");
 
 app.set("view engine", "ejs");
 app.set("views", "view");
@@ -21,8 +22,9 @@ app.use(hostrouter);
 app.use(storerouter);
 app.use(errorrouter);
 
-mongoconnect(() => {
+databaseconnect(() => {
   app.listen(3000, () => {
     console.log("server is listening");
   });
 });
+

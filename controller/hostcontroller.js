@@ -1,4 +1,4 @@
-const { homedata } = require("../model/Homedata");
+const homedata = require("../model/homedata");
 const fs = require('fs');
 const path = require('path');
 
@@ -10,13 +10,16 @@ const getaddhome = (req, res, next) => {
 const homelist = [];
 
 const postaddhome = (req, res, next) => {
+  console.log(req.body);
+  const b = new homedata({
 
-  const b = new homedata(req.body);
-  b.save();
-
-
-
-  res.render("host/successfull");
+    homeaddress: req.body.homeaddress,
+    ownername: req.body.ownername,
+    id: req.body.id
+  });
+  b.save().then(() => {
+    res.render("host/successfull");
+  })
 };
 
 module.exports = {
