@@ -1,22 +1,13 @@
 const express = require("express");
 const authrouter = express.Router();
-const session = require("express-session");
-authrouter.use(
-  session({
-    secret: "fsdfsfs",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: mongoURI,
-      collectionName: "sessions",
-    }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    },
-  }),
-);
+const authcontroller = require("../controller/authcontroller");
 
-exports.authrouter = authrouter;
+//handle all log in route
+authrouter.get("/login", authcontroller.getLogin);
+authrouter.post("/login", authcontroller.postLogin);
+authrouter.post("/logout", authcontroller.postLogout);
+
+//handle all signup router
+authrouter.get("/signup", authcontroller.getsignup);
+
+module.exports = { authrouter };

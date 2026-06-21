@@ -7,6 +7,8 @@ const app = express();
 const { hostrouter } = require("./routes/hostrouter");
 const storerouter = require("./routes/storerouter");
 const errorrouter = require("./routes/errorhandle");
+const { authrouter } = require("./routes/auth");
+const { requireAuth } = require("./middleware/auth");
 
 const path = require("path");
 const rootdir = require("./utility/root");
@@ -24,6 +26,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl: process.env.mongoURI,
+      dbName: "NEAZ",
       collectionName: "sessions",
     }),
     cookie: {
@@ -38,6 +41,8 @@ app.use(
 app.use(express.static(path.join(rootdir, "public")));
 
 app.use(express.urlencoded());
+app.use(requireAuth);
+app.use(authrouter);
 
 app.use(hostrouter);
 app.use(storerouter);

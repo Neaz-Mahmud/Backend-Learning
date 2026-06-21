@@ -3,9 +3,10 @@ const { homedata } = require("./Homedata");
 
 const mongoose = require("mongoose");
 const favouriteschema = new mongoose.Schema({
-  id: Number
+  id: Number,
 });
 
-
-const Allfavourite = mongoose.models.Allfavourite || mongoose.model("Allfavourite", favouriteschema);
+const Allfavourite =
+  mongoose.models.Allfavourite ||
+  mongoose.model("Allfavourite", favouriteschema);
 module.exports = Allfavourite;

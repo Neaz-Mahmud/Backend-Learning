@@ -9,7 +9,12 @@
 </head>
 
 <body>
-  <header>Welcome Here</header>
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #1e293b; color: #f8fafc; border-radius: 8px; margin-bottom: 20px; font-family: sans-serif;">
+    <span style="font-weight: 600; font-size: 1.1rem;">Welcome Here</span>
+    <form action="/logout" method="POST" style="margin: 0;">
+      <button type="submit" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.2s;">Logout</button>
+    </form>
+  </header>
   <main>
 
     <hr>
