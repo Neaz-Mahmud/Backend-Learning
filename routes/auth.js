@@ -9,5 +9,5 @@ authrouter.post("/logout", authcontroller.postLogout);
 
 //handle all signup router
 authrouter.get("/signup", authcontroller.getsignup);
-
+authrouter.post("/signup", authcontroller.postsignup);
 module.exports = { authrouter };

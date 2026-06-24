@@ -1,3 +1,6 @@
+const express = require('express');
+const { check, validationResult } = require('express-validator');
+
 const getLogin = (req, res) => {
   if (req.session && req.session.isLoggedIn) {
     return res.redirect("/");
@@ -47,6 +50,7 @@ const postLogin = (req, res) => {
 };
 
 const postLogout = (req, res) => {
+
   req.session.destroy((err) => {
     if (err) {
       console.error("Session destroy error:", err);
@@ -58,12 +62,32 @@ const postLogout = (req, res) => {
 //handling all sign up
 const getsignup = (req, res) => {
   console.log("get sign up e eshechi");
-  res.render("authentication/signup", { error: null, email: "" });
+  res.render("authentication/signup", { error: null, email: "", firstName: "" });
 };
+
+
+const postsignup = [
+
+  check('firstName').trim().notEmpty().withMessage("can't be empty"),
+
+
+  (req, res) => {
+    const err = validationResult(req);
+    console.log('this is err', err.array());
+    if (!err.isEmpty()) {
+      return res.status(400).send("somossa ache");
+    }
+
+    req.session.isLoggedIn = true;
+    res.redirect('/');
+  }
+];
 
 module.exports = {
   getLogin,
   postLogin,
   postLogout,
   getsignup,
+  postsignup
+
 };
